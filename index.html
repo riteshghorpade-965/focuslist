@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FocusList - Smart daily task manager">
+    <title>FocusList | Stay Focused</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <header class="header">
+        <div class="brand">
+            <div class="logo">✓</div>
+            <div>
+                <h1>FocusList</h1>
+                <p>Organize your day. Stay focused.</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="stats" aria-label="Task statistics">
+        <div class="stat-card">
+            <div class="stat-icon">📋</div>
+            <div>
+                <span>Total Tasks</span>
+                <strong id="totalTasks">0</strong>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">✓</div>
+            <div>
+                <span>Completed</span>
+                <strong id="completedTasks">0</strong>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+            <div>
+                <span>Pending</span>
+                <strong id="pendingTasks">0</strong>
+            </div>
+        </div>
+    </section>
+
+    <section class="add-section" aria-label="Add task">
+        <div class="input-row">
+            <input
+                id="taskInput"
+                type="text"
+                maxlength="150"
+                placeholder="What needs to be done?"
+                aria-label="Task title"
+            >
+
+            <select id="priorityInput" aria-label="Task priority">
+                <option value="high">🔴 High</option>
+                <option value="medium" selected>🟡 Medium</option>
+                <option value="low">🟢 Low</option>
+            </select>
+
+            <button id="addTaskBtn" class="add-btn">
+                + Add Task
+            </button>
+        </div>
+
+        <p id="inputError" class="error" role="alert"></p>
+    </section>
+
+    <section class="toolbar">
+
+        <div class="search-box">
+            <span>🔍</span>
+            <input
+                id="searchInput"
+                type="search"
+                placeholder="Search tasks..."
+                aria-label="Search tasks"
+            >
+        </div>
+
+        <select id="priorityFilter" aria-label="Filter by priority">
+            <option value="all">All Priorities</option>
+            <option value="high">🔴 High</option>
+            <option value="medium">🟡 Medium</option>
+            <option value="low">🟢 Low</option>
+        </select>
+
+    </section>
+
+    <nav class="filters" aria-label="Task status filters">
+
+        <button class="filter-btn active" data-status="all">
+            All <span id="allCount">0</span>
+        </button>
+
+        <button class="filter-btn" data-status="active">
+            Active <span id="activeCount">0</span>
+        </button>
+
+        <button class="filter-btn" data-status="completed">
+            Completed <span id="completedCount">0</span>
+        </button>
+
+    </nav>
+
+    <main>
+
+        <div id="taskList" class="task-list"></div>
+
+        <section id="emptyState" class="empty-state">
+            <div class="empty-icon">✓</div>
+            <h2 id="emptyTitle">No tasks yet</h2>
+            <p id="emptyMessage">
+                Add your first task and start getting things done.
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        FocusList • Your daily productivity companion
+    </footer>
+
+</div>
+
+
+<!-- Edit Modal -->
+
+<div id="editModal" class="modal hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-top">
+            <div>
+                <h2>Edit Task</h2>
+                <p>Update your task details</p>
+            </div>
+
+            <button id="closeModal" class="close-btn" aria-label="Close">
+                ×
+            </button>
+        </div>
+
+        <label for="editTaskInput">Task title</label>
+
+        <input
+            id="editTaskInput"
+            type="text"
+            maxlength="150"
+        >
+
+        <label for="editPriorityInput">Priority</label>
+
+        <select id="editPriorityInput">
+            <option value="high">🔴 High</option>
+            <option value="medium">🟡 Medium</option>
+            <option value="low">🟢 Low</option>
+        </select>
+
+        <div class="modal-actions">
+            <button id="cancelEdit" class="cancel-btn">
+                Cancel
+            </button>
+
+            <button id="saveEdit" class="save-btn">
+                Save Changes
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
