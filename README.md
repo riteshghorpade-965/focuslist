@@ -1,104 +1,85 @@
-# FocusList 🚀
+# FocusList — Smart Task Manager
 
-FocusList is a responsive, frontend-only daily task management application built for the FocusList Challenge.
+A modern, responsive and accessible frontend-only task management application designed to help users organize tasks, manage priorities and stay focused.
 
-## Live Demo
+## 🚀 Live Demo
 
 https://focuslist-five.vercel.app/
 
-## Features
+## 📦 GitHub Repository
 
+https://github.com/riteshghorpade-965/focuslist
+
+---
+
+## ✨ Features
+
+### Task Management
 - Create new tasks
 - Mark tasks as completed
 - Edit existing tasks
 - Delete tasks
-- High, Medium and Low priority
-- Search tasks by title
-- Filter by All, Active and Completed
-- Filter tasks by priority
-- Dynamic Total, Completed and Pending statistics
-- LocalStorage persistence
-- Responsive desktop and mobile interface
-- Clear visual distinction between completed and pending tasks
-- Keyboard support for task creation and editing
-- Accessible labels and interactive controls
+- Clear all completed tasks
+- Persistent task storage using LocalStorage
 
-## Technology Stack
+### 🔥 Priority Management
+- High priority
+- Medium priority
+- Low priority
+- Smart Priority suggestion based on task keywords
+
+### 🔎 Search & Filtering
+- Search tasks instantly
+- Filter by All Tasks
+- Filter by Active/In Progress
+- Filter by Completed
+- Filter by priority
+
+### 📊 Productivity Dashboard
+- Total task count
+- Active task count
+- Completed task count
+- High-priority task count
+- Dynamic completion percentage
+- Focus Score visualization
+
+### 🎯 Focus Sprint
+FocusList includes a built-in 15-minute Focus Sprint feature that helps users concentrate on their first active task without distractions.
+
+### 🌙 User Experience
+- Light and dark mode
+- Responsive desktop, tablet and mobile layouts
+- Keyboard-friendly controls
+- Accessible labels and focus states
+- Empty-state handling
+- Reduced-motion support
+- Keyboard shortcut `/` for search
+- `Esc` to close dialogs
+
+### 📤 Data Export
+Users can export their tasks as a JSON file for backup or portability.
+
+---
+
+## 🛠️ Technologies Used
 
 - HTML5
 - CSS3
-- Vanilla JavaScript
-- Browser LocalStorage
+- JavaScript (ES6+)
+- LocalStorage API
+- DOM APIs
+- Responsive CSS
+- Vercel for deployment
+- GitHub for version control
 
-## Architecture
+---
 
-The application follows a simple frontend architecture:
+## 📁 Project Structure
 
-User Action
-↓
-JavaScript State
-↓
-LocalStorage
-↓
-Render
-↓
-Updated User Interface
-
-### Files
-
-`index.html`
-- Semantic page structure
-- Forms, filters, statistics and task interface
-- Accessibility attributes
-
-`style.css`
-- Responsive layout
-- Visual design
-- Task states
-- Mobile breakpoints
-- Interactive feedback
-
-`script.js`
-- Task state management
-- CRUD operations
-- Search and filtering
-- Statistics calculation
-- LocalStorage persistence
-- DOM rendering
-- Input validation
-
-## Data Model
-
-Each task contains:
-
-- id
-- title
-- priority
-- completed
-- createdAt
-
-## Performance and Security
-
-- No backend or external database
-- No external runtime dependencies
-- Uses browser LocalStorage for persistence
-- Task titles are rendered safely using DOM text content
-- Input length validation is implemented
-- Responsive CSS reduces unnecessary layout complexity
-
-## Accessibility
-
-- Semantic HTML
-- Accessible form labels
-- ARIA labels for task controls
-- Keyboard interaction support
-- Visible focus states
-- Status filters are keyboard accessible
-
-## Deployment
-
-The application is deployed as a static frontend application using Vercel.
-
-## Challenge Alignment
-
-FocusList implements the required task creation, task management, priority management, search, filtering, statistics, LocalStorage persistence, responsive UI and frontend-only technical requirements.
+```text
+focuslist/
+│
+├── index.html
+├── style.css
+├── script.js
+└── README.md
