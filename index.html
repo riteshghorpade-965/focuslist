@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="FocusList - A fast, focused task management workspace."
+    >
+
+    <title>FocusList — Plan. Prioritize. Finish.</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<div class="app-shell">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div>
+                <h2>FocusList</h2>
+                <p>Your daily command center</p>
+            </div>
+
+        </div>
+
+
+        <!-- Progress -->
+
+        <div class="side-progress">
+
+            <div class="progress-header">
+                <span>Today's focus</span>
+                <strong id="sideProgressText">0%</strong>
+            </div>
+
+            <div class="progress-track">
+                <div
+                    id="sideProgressBar"
+                    class="progress-fill"
+                ></div>
+            </div>
+
+            <p id="sideProgressMessage">
+                Start with one small win.
+            </p>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="nav-list" aria-label="Task navigation">
+
+            <button
+                class="nav-item filter-btn active"
+                data-filter="all"
+                type="button"
+            >
+                <span class="nav-icon">⌁</span>
+                <span>All tasks</span>
+                <b id="allCount">0</b>
+            </button>
+
+
+            <button
+                class="nav-item filter-btn"
+                data-filter="active"
+                type="button"
+            >
+                <span class="nav-icon">○</span>
+                <span>In progress</span>
+                <b id="activeCount">0</b>
+            </button>
+
+
+            <button
+                class="nav-item filter-btn"
+                data-filter="completed"
+                type="button"
+            >
+                <span class="nav-icon">✓</span>
+                <span>Completed</span>
+                <b id="completedCount">0</b>
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                id="themeBtn"
+                class="utility-btn"
+                type="button"
+            >
+                ◐
+                <span>Appearance</span>
+            </button>
+
+
+            <button
+                id="exportBtn"
+                class="utility-btn"
+                type="button"
+            >
+                ↗
+                <span>Export tasks</span>
+            </button>
+
+
+            <p class="shortcut-tip">
+                Press <kbd>/</kbd> to search
+            </p>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main id="main" class="main-content">
+
+
+        <!-- Header -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="eyebrow">
+                    PERSONAL PRODUCTIVITY
+                </p>
+
+                <h1>
+                    Plan less.
+                    <span>Finish more.</span>
+                </h1>
+
+                <p class="subtitle">
+                    A focused workspace for the things that actually matter today.
+                </p>
+
+            </div>
+
+
+            <div class="top-actions">
+
+                <div id="dateChip" class="date-chip">
+                    Today
+                </div>
+
+                <button
+                    id="clearCompletedBtn"
+                    class="ghost-btn"
+                    type="button"
+                >
+                    Clear completed
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= FOCUS SCORE ================= -->
+
+        <section class="hero-card">
+
+            <div class="hero-copy">
+
+                <span class="hero-kicker">
+                    FOCUS SCORE
+                </span>
+
+                <h2>
+                    <span id="focusPercent">0%</span>
+                    of your list is complete.
+                </h2>
+
+                <p id="focusMessage">
+                    Every completed task moves the day forward.
+                </p>
+
+            </div>
+
+
+            <div
+                id="focusRing"
+                class="focus-ring"
+                aria-label="Task completion percentage"
+            >
+
+                <div class="ring-inner">
+
+                    <strong id="ringValue">
+                        0%
+                    </strong>
+
+                    <small>
+                        DONE
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= WORKSPACE ================= -->
+
+        <section class="workspace">
+
+
+            <!-- Add Task -->
+
+            <div class="card composer">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            NEW TASK
+                        </span>
+
+                        <h2>
+                            What needs your attention?
+                        </h2>
+
+                    </div>
+
+
+                    <span
+                        id="pendingPill"
+                        class="count-pill"
+                    >
+                        0 pending
+                    </span>
+
+                </div>
+
+
+                <div class="composer-row">
+
+                    <label
+                        for="taskInput"
+                        class="sr-only"
+                    >
+                        Task title
+                    </label>
+
+                    <input
+                        id="taskInput"
+                        type="text"
+                        maxlength="140"
+                        autocomplete="off"
+                        placeholder="e.g. Finish cloud deployment notes..."
+                    >
+
+
+                    <label
+                        for="priorityInput"
+                        class="sr-only"
+                    >
+                        Task priority
+                    </label>
+
+                    <select id="priorityInput">
+
+                        <option value="high">
+                            High priority
+                        </option>
+
+                        <option
+                            value="medium"
+                            selected
+                        >
+                            Medium priority
+                        </option>
+
+                        <option value="low">
+                            Low priority
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        id="addTaskBtn"
+                        class="primary-btn"
+                        type="button"
+                    >
+                        Add task
+                        <span>＋</span>
+                    </button>
+
+                </div>
+
+
+                <p
+                    id="inputError"
+                    class="form-error"
+                    role="alert"
+                ></p>
+
+
+                <div class="quick-add">
+
+                    <span>Priority guide</span>
+
+                    <button
+                        type="button"
+                        class="priority-dot high"
+                        data-quick-priority="high"
+                    >
+                        High
+                    </button>
+
+                    <button
+                        type="button"
+                        class="priority-dot medium"
+                        data-quick-priority="medium"
+                    >
+                        Medium
+                    </button>
+
+                    <button
+                        type="button"
+                        class="priority-dot low"
+                        data-quick-priority="low"
+                    >
+                        Low
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Search -->
+
+            <div class="card toolbar">
+
+                <div class="search-wrap">
+
+                    <span>⌕</span>
+
+                    <label
+                        for="searchInput"
+                        class="sr-only"
+                    >
+                        Search tasks
+                    </label>
+
+                    <input
+                        id="searchInput"
+                        type="search"
+                        placeholder="Search tasks..."
+                        autocomplete="off"
+                    >
+
+                    <kbd>/</kbd>
+
+                </div>
+
+
+                <label
+                    for="priorityFilter"
+                    class="sr-only"
+                >
+                    Priority filter
+                </label>
+
+                <select id="priorityFilter">
+
+                    <option value="all">
+                        All priorities
+                    </option>
+
+                    <option value="high">
+                        High priority
+                    </option>
+
+                    <option value="medium">
+                        Medium priority
+                    </option>
+
+                    <option value="low">
+                        Low priority
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- Task heading -->
+
+            <div class="list-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        YOUR WORK
+                    </span>
+
+                    <h2 id="listTitle">
+                        All tasks
+                    </h2>
+
+                </div>
+
+
+                <div class="mini-stats">
+
+                    <span>
+                        <b id="totalTasks">0</b>
+                        total
+                    </span>
+
+                    <span>
+                        <b id="completedTasks">0</b>
+                        done
+                    </span>
+
+                    <span>
+                        <b id="pendingTasks">0</b>
+                        pending
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Tasks -->
+
+            <div
+                id="taskList"
+                class="task-list"
+                aria-live="polite"
+            ></div>
+
+
+
+            <!-- Empty -->
+
+            <div
+                id="emptyState"
+                class="empty-state card"
+                hidden
+            >
+
+                <div class="empty-icon">
+                    ✦
+                </div>
+
+                <h3 id="emptyTitle">
+                    Your list is clear
+                </h3>
+
+                <p id="emptyMessage">
+                    Add your first task above.
+                </p>
+
+                <button
+                    id="emptyActionBtn"
+                    class="secondary-btn"
+                    type="button"
+                >
+                    Create a task
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <footer class="footer">
+
+            <span>FocusList</span>
+            <span>•</span>
+            <span>Local-first · Fast · Private</span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+
+<!-- ================= EDIT MODAL ================= -->
+
+<div
+    id="editModal"
+    class="modal-backdrop"
+    hidden
+>
+
+    <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="editTitle"
+    >
+
+        <div class="modal-head">
+
+            <div>
+
+                <span class="section-label">
+                    EDIT TASK
+                </span>
+
+                <h2 id="editTitle">
+                    Refine the plan
+                </h2>
+
+            </div>
+
+
+            <button
+                id="closeModal"
+                class="icon-btn"
+                type="button"
+                aria-label="Close edit dialog"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <label for="editTaskInput">
+            Task title
+        </label>
+
+        <input
+            id="editTaskInput"
+            type="text"
+            maxlength="140"
+        >
+
+
+        <label for="editPriorityInput">
+            Priority
+        </label>
+
+        <select id="editPriorityInput">
+
+            <option value="high">
+                High priority
+            </option>
+
+            <option value="medium">
+                Medium priority
+            </option>
+
+            <option value="low">
+                Low priority
+            </option>
+
+        </select>
+
+
+        <div class="modal-actions">
+
+            <button
+                id="cancelEdit"
+                class="secondary-btn"
+                type="button"
+            >
+                Cancel
+            </button>
+
+            <button
+                id="saveEdit"
+                class="primary-btn"
+                type="button"
+            >
+                Save changes
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div
+    id="liveStatus"
+    class="sr-only"
+    aria-live="polite"
+></div>
+
+
+<script src="script.js" defer></script>
+
+</body>
+</html>
