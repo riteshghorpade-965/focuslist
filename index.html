@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FocusList - A smart and simple task manager">
+  <title>FocusList — Plan Less. Finish More.</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <a href="#mainContent" class="skip-link">Skip to content</a>
+
+  <div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">✓</div>
+        <div>
+          <h1>FocusList</h1>
+          <span>Task Manager</span>
+        </div>
+      </div>
+
+      <nav class="side-nav" aria-label="Task filters">
+        <button class="nav-item active" data-status="all">
+          <span>◉</span>
+          <span>All Tasks</span>
+          <strong id="allCount">0</strong>
+        </button>
+
+        <button class="nav-item" data-status="active">
+          <span>○</span>
+          <span>In Progress</span>
+          <strong id="activeCountSide">0</strong>
+        </button>
+
+        <button class="nav-item" data-status="completed">
+          <span>✓</span>
+          <span>Completed</span>
+          <strong id="completedCountSide">0</strong>
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <button id="themeBtn" class="side-action" type="button">
+          <span>◐</span> Appearance
+        </button>
+
+        <button id="exportBtn" class="side-action" type="button">
+          <span>↓</span> Export Tasks
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main id="mainContent" class="main-content">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">TODAY'S FOCUS</p>
+          <div class="progress-line">
+            <div class="progress-track">
+              <div id="progressBar" class="progress-fill"></div>
+            </div>
+            <span id="progressText">0% complete</span>
+          </div>
+        </div>
+
+        <button id="clearCompletedBtn" class="ghost-btn" type="button">
+          Clear completed
+        </button>
+      </header>
+
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="hero-badge">✦ SMART PRODUCTIVITY</span>
+          <h2>Plan less.<br><span>Finish more.</span></h2>
+          <p>
+            Organize your work, protect your focus, and turn today's
+            priorities into completed tasks.
+          </p>
+        </div>
+
+        <div class="focus-score">
+          <div class="score-ring">
+            <span id="focusScore">0</span>
+            <small>Focus<br>Score</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPOSER -->
+      <section class="composer card">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">QUICK ADD</span>
+            <h3>Create a new task</h3>
+          </div>
+
+          <button id="smartPriorityBtn" class="smart-btn" type="button">
+            ✦ Smart Priority
+          </button>
+        </div>
+
+        <form id="taskForm" class="task-form">
+          <div class="input-wrap">
+            <label for="taskInput">Task title</label>
+            <input
+              id="taskInput"
+              type="text"
+              maxlength="120"
+              autocomplete="off"
+              placeholder="What needs to be done?"
+              required
+            >
+            <small id="inputError" class="input-error"></small>
+          </div>
+
+          <div class="priority-wrap">
+            <label for="priorityInput">Priority</label>
+            <select id="priorityInput">
+              <option value="high">High</option>
+              <option value="medium" selected>Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+
+          <button class="primary-btn" type="submit">
+            + Add Task
+          </button>
+        </form>
+      </section>
+
+      <!-- TOOLBAR -->
+      <section class="toolbar">
+        <div class="search-box">
+          <span>⌕</span>
+          <label for="searchInput" class="sr-only">Search tasks</label>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Search tasks..."
+            autocomplete="off"
+          >
+          <kbd>/</kbd>
+        </div>
+
+        <select id="priorityFilter" class="filter-select" aria-label="Filter by priority">
+          <option value="all">All priorities</option>
+          <option value="high">High priority</option>
+          <option value="medium">Medium priority</option>
+          <option value="low">Low priority</option>
+        </select>
+      </section>
+
+      <!-- STATS -->
+      <section class="stats-grid" aria-label="Task statistics">
+        <div class="stat-card">
+          <span>Total Tasks</span>
+          <strong id="totalStat">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Active</span>
+          <strong id="activeStat">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Completed</span>
+          <strong id="completedStat">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>High Priority</span>
+          <strong id="highStat">0</strong>
+        </div>
+      </section>
+
+      <!-- TASK LIST -->
+      <section class="tasks-section">
+        <div class="list-heading">
+          <div>
+            <span class="section-kicker">YOUR WORK</span>
+            <h3>Tasks</h3>
+          </div>
+
+          <span id="visibleCount" class="visible-count">0 tasks</span>
+        </div>
+
+        <div id="taskList" class="task-list"></div>
+
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">✓</div>
+          <h3>No tasks here</h3>
+          <p>Add a task or change your filters to see your work.</p>
+          <button id="resetFiltersBtn" class="ghost-btn" type="button">
+            Reset filters
+          </button>
+        </div>
+      </section>
+
+      <!-- INNOVATION -->
+      <section class="innovation-card">
+        <div>
+          <span class="section-kicker">SMART FOCUS</span>
+          <h3>Focus Sprint</h3>
+          <p>
+            Work on your first active task for 15 distraction-free minutes.
+          </p>
+        </div>
+
+        <button id="focusSprintBtn" class="primary-btn" type="button">
+          Start Focus Sprint
+        </button>
+      </section>
+
+      <footer class="footer">
+        <span>FocusList</span>
+        <span>Built for focused work.</span>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- EDIT MODAL -->
+  <div id="editModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+    <div class="modal-card">
+      <button id="closeModalBtn" class="modal-close" type="button" aria-label="Close">×</button>
+
+      <span class="section-kicker">EDIT TASK</span>
+      <h2 id="editTitle">Update task</h2>
+
+      <label for="editInput">Task title</label>
+      <input id="editInput" type="text" maxlength="120">
+
+      <label for="editPriority">Priority</label>
+      <select id="editPriority">
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+
+      <div class="modal-actions">
+        <button id="cancelEditBtn" class="ghost-btn" type="button">Cancel</button>
+        <button id="saveEditBtn" class="primary-btn" type="button">Save changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOCUS SPRINT MODAL -->
+  <div id="sprintModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="sprintTitle">
+    <div class="modal-card sprint-card">
+      <button id="closeSprintBtn" class="modal-close" type="button" aria-label="Close">×</button>
+
+      <span class="section-kicker">FOCUS SPRINT</span>
+      <h2 id="sprintTitle">15:00</h2>
+
+      <p id="sprintTaskName">Focus on your task.</p>
+
+      <div class="sprint-circle">
+        <span id="sprintTimer">15:00</span>
+      </div>
+
+      <button id="stopSprintBtn" class="danger-btn" type="button">
+        Stop Sprint
+      </button>
+    </div>
+  </div>
+
+  <div id="statusMessage" class="sr-only" aria-live="polite"></div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
